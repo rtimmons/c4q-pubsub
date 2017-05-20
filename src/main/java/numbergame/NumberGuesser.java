@@ -22,14 +22,15 @@ class NumberGuesser {
         p("Guess a number between ", min, " and ", max);
 
         int guess;
-        RESPONSE response;
+        RESPONSE response = null;
 
         G:
         while (true) {
-            guess = max - (max - min) / 2;
+            guesses++;
 
-            log.debug("Guessing max - (max - min)/2 = {} - ({} - {})/2 = {}",
-                max, max, min, guess);
+            guess =
+                max - min == 1 ? response == RESPONSE.HIGHER ? max : min
+                : max - (max - min) / 2;
 
             response = decide(guess);
             log.debug("Answer is {}", response);

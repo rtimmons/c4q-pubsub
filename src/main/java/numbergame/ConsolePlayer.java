@@ -9,12 +9,33 @@ import java.util.Scanner;
 class ConsolePlayer implements Player {
 
     private final Printer printer;
-    private final Scanner in;
+    private final ScannerWrapper in;
 
-    ConsolePlayer(Printer printer, Scanner in) {
+    interface ScannerWrapper {
+        String nextLine();
+    }
+
+    static class DefaultScannerWrapper implements ScannerWrapper {
+        private final Scanner scanner;
+        DefaultScannerWrapper(Scanner scanner) {
+            this.scanner = scanner;
+        }
+        @Override
+        public String nextLine() {
+            return scanner.nextLine();
+        }
+    }
+
+    ConsolePlayer(Printer printer, ScannerWrapper in) {
         this.printer = printer;
         this.in = in;
     }
+
+    ConsolePlayer(Printer printer, Scanner in) {
+        this.printer = printer;
+        this.in = new DefaultScannerWrapper(in);
+    }
+
 
     @Override
     public Response decide(int guess) {

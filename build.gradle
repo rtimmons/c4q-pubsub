@@ -12,6 +12,7 @@ buildscript {
 
 apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'java'
+apply plugin: "jacoco"
 apply plugin: 'application'
 apply plugin: 'idea'
 

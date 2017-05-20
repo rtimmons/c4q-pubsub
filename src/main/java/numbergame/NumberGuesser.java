@@ -3,8 +3,6 @@ package numbergame;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Scanner;
-
 /**
  * @author rtimmons@
  * @since 5/20/17
@@ -12,10 +10,13 @@ import java.util.Scanner;
 class NumberGuesser {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
-    private final Printer printer;
 
-    NumberGuesser(Printer printer) {
+    private final ConsolePrinter printer;
+    private final ConsolePlayer player;
+
+    NumberGuesser(ConsolePrinter printer, ConsolePlayer player) {
         this.printer = printer;
+        this.player = player;
     }
 
     void play() {
@@ -26,17 +27,17 @@ class NumberGuesser {
         printer.p("Guess a number between ", min, " and ", max);
 
         int guess;
-        RESPONSE response = null;
+        Response response = null;
 
         G:
         while (true) {
             guesses++;
 
             guess =
-                max - min == 1 ? response == RESPONSE.HIGHER ? max : min
+                max - min == 1 ? response == Response.HIGHER ? max : min
                 : max - (max - min) / 2;
 
-            response = decide(guess);
+            response = player.decide(guess);
             log.debug("Answer is {}", response);
 
             switch (response) {
@@ -54,29 +55,6 @@ class NumberGuesser {
         }
 
         printer.p("Guessed your number ", guess, " in ", guesses, " guesses");
-    }
-
-    Scanner in = new Scanner(System.in);
-
-    enum RESPONSE {
-        CORRECT,
-        HIGHER,
-        LOWER,
-    }
-
-    RESPONSE decide(int guess) {
-        while (true) {
-            printer.p("Guess ", guess, ". Enter C (correct), H (higher), or L (lower)");
-            String response = in.nextLine().toLowerCase();
-            switch (response) {
-                case "c":
-                    return RESPONSE.CORRECT;
-                case "h":
-                    return RESPONSE.HIGHER;
-                case "l":
-                    return RESPONSE.LOWER;
-            }
-        }
     }
 
 }

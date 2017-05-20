@@ -11,10 +11,10 @@ class NumberGuesser {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    private final ConsolePrinter printer;
-    private final ConsolePlayer player;
+    private final Printer printer;
+    private final Player player;
 
-    NumberGuesser(ConsolePrinter printer, ConsolePlayer player) {
+    NumberGuesser(Printer printer, Player player) {
         this.printer = printer;
         this.player = player;
     }

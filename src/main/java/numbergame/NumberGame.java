@@ -11,8 +11,8 @@ public class NumberGame {
     public static void main(String... args) {
 
         final Scanner input = new Scanner(System.in);
-        final ConsolePrinter printer = new ConsolePrinter(System.out);
-        final ConsolePlayer player = new ConsolePlayer(printer, input);
+        final Printer printer = new ConsolePrinter(System.out);
+        final Player player = new ConsolePlayer(printer, input);
         final NumberGuesser guesser = new NumberGuesser(printer, player);
 
         while(true) {

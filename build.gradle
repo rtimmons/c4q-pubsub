@@ -1,9 +1,23 @@
 group 'c4q'
 version '1.0-SNAPSHOT'
 
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.0'
+    }
+}
+
+apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'idea'
+
 
 sourceCompatibility = 1.8
+mainClassName = 'app.Main'
 
 repositories {
     mavenCentral()
@@ -11,4 +25,5 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile     group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.25'
 }

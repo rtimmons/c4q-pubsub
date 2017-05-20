@@ -3,7 +3,6 @@ package numbergame;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.PrintStream;
 import java.util.Scanner;
 
 /**
@@ -13,13 +12,18 @@ import java.util.Scanner;
 class NumberGuesser {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
+    private final Printer printer;
+
+    NumberGuesser(Printer printer) {
+        this.printer = printer;
+    }
 
     void play() {
         int guesses = 0;
         int min = 0;
         int max = 100;
 
-        p("Guess a number between ", min, " and ", max);
+        printer.p("Guess a number between ", min, " and ", max);
 
         int guess;
         RESPONSE response = null;
@@ -49,16 +53,7 @@ class NumberGuesser {
             }
         }
 
-        p("Guessed your number ", guess, " in ", guesses, " guesses");
-    }
-
-    PrintStream ps = System.out;
-
-    void p(Object... obs) {
-        for (Object o : obs) {
-            ps.print(String.valueOf(o));
-        }
-        ps.println();
+        printer.p("Guessed your number ", guess, " in ", guesses, " guesses");
     }
 
     Scanner in = new Scanner(System.in);
@@ -71,7 +66,7 @@ class NumberGuesser {
 
     RESPONSE decide(int guess) {
         while (true) {
-            p("Guess ", guess, ". Enter C (correct), H (higher), or L (lower)");
+            printer.p("Guess ", guess, ". Enter C (correct), H (higher), or L (lower)");
             String response = in.nextLine().toLowerCase();
             switch (response) {
                 case "c":

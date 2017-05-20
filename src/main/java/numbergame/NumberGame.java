@@ -7,7 +7,8 @@ package numbergame;
 public class NumberGame {
 
     public static void main(String...args) {
-        NumberGuesser guesser =  new NumberGuesser();
+        Printer printer = new ConsolePrinter(System.out);
+        NumberGuesser guesser = new NumberGuesser(printer);
         while(true) {
             guesser.play();
         }

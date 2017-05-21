@@ -13,9 +13,12 @@ class NumberGuesser {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
     private final Printer printer;
+    private final Player player;
 
-    NumberGuesser(Printer printer) {
+
+    public NumberGuesser(Printer printer, Player player) {
         this.printer = printer;
+        this.player = player;
     }
 
     void play() {
@@ -36,7 +39,7 @@ class NumberGuesser {
                 max - min == 1 ? response == RESPONSE.HIGHER ? max : min
                 : max - (max - min) / 2;
 
-            response = decide(guess);
+            response = player.decide(guess);
             log.debug("Answer is {}", response);
 
             switch (response) {
@@ -56,7 +59,6 @@ class NumberGuesser {
         printer.p("Guessed your number ", guess, " in ", guesses, " guesses");
     }
 
-    Scanner in = new Scanner(System.in);
 
     enum RESPONSE {
         CORRECT,
@@ -64,19 +66,5 @@ class NumberGuesser {
         LOWER,
     }
 
-    RESPONSE decide(int guess) {
-        while (true) {
-            printer.p("Guess ", guess, ". Enter C (correct), H (higher), or L (lower)");
-            String response = in.nextLine().toLowerCase();
-            switch (response) {
-                case "c":
-                    return RESPONSE.CORRECT;
-                case "h":
-                    return RESPONSE.HIGHER;
-                case "l":
-                    return RESPONSE.LOWER;
-            }
-        }
-    }
 
 }
